@@ -2,9 +2,10 @@
 {
     public class User
     {
-        public string Uid { get; set; }
+        public string Id { get; set; }
         public string? CashierEmail { get; set; }
         public string? CashierPassword { get; set; }
+        public List<Order> Order { get; set; }
 
     }
 }

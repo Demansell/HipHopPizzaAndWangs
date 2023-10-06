@@ -6,10 +6,10 @@ using Microsoft.Extensions.Hosting;
 public class HipHopPizzaWangsDbContext : DbContext
 {
 
-    public DbSet<Item> Items { get; set; }
-    public DbSet<User> Users { get; set; }
-    public DbSet<Payment> Payments { get; set; }
-    public DbSet<Order> Orders { get; set; }
+    public DbSet<Item>? Items { get; set; }
+    public DbSet<User>? Users { get; set; }
+    public DbSet<Payment>? Payments { get; set; }
+    public DbSet<Order>? Orders { get; set; }
 
     public HipHopPizzaWangsDbContext(DbContextOptions<HipHopPizzaWangsDbContext> context) : base(context)
     {
@@ -27,9 +27,9 @@ public class HipHopPizzaWangsDbContext : DbContext
 
         modelBuilder.Entity<User>().HasData(new User[]
             {
-                new User { Uid = "waefaw", CashierEmail = "demansell2016@gmail.com", CashierPassword = "M@chelle2030" },
-                new User { Uid = "wawfwaeufoaewfhaew", CashierEmail = "Trex@gmail.com", CashierPassword = "M@chelle2012" },
-                new User { Uid = "waeabasjvajsvjka", CashierEmail = "Tricertops@gmail.com", CashierPassword = "M@chelle2020" },
+                new User { Id = "waefaw", CashierEmail = "demansell2016@gmail.com", CashierPassword = "M@chelle2030" },
+                new User { Id = "wawfwaeufoaewfhaew", CashierEmail = "Trex@gmail.com", CashierPassword = "M@chelle2012" },
+                new User { Id = "waeabasjvajsvjka", CashierEmail = "Tricertops@gmail.com", CashierPassword = "M@chelle2020" },
             });
         modelBuilder.Entity<Payment>().HasData(new Payment[]
             {
@@ -39,9 +39,9 @@ public class HipHopPizzaWangsDbContext : DbContext
            });
         modelBuilder.Entity<Order>().HasData(new Order[]
             { 
-                new Order { Id = 1, CustomerName = "Dustin", CustomerEmail = "demoney@gmail.com", CustomerPhoneNumber = "9312613939", UserId = "waefaw", PaymentTypeId = 1, IsOpen = true, OrderTotal = 123, Feedback = false, Tip = 12},
-                new Order { Id = 1, CustomerName = "Dustin", CustomerEmail = "demoney@gmail.com", CustomerPhoneNumber = "9312613939", UserId = "waefaw", PaymentTypeId = 1, IsOpen = true, OrderTotal = 123, Feedback = false, Tip = 12},
-                new Order { Id = 1, CustomerName = "Dustin", CustomerEmail = "demoney@gmail.com", CustomerPhoneNumber = "9312613939", UserId = "waefaw", PaymentTypeId = 1, IsOpen = true, OrderTotal = 123, Feedback = false, Tip = 12},
+                new Order { Id = 1, CustomerName = "Dustin", CustomerEmail = "demoney@gmail.com", CustomerPhoneNumber = "9312613939", UserId = "waefaw", PaymentTypeId = 1, IsOpen = false, OrderTotal = 123, Feedback = false, Tip = 12, OrderType = "Call in"},
+                new Order { Id = 2, CustomerName = "Dustin", CustomerEmail = "demoney@gmail.com", CustomerPhoneNumber = "9312613939", UserId = "waefaw", PaymentTypeId = 2, IsOpen = true, OrderTotal = 123, Feedback = true, Tip = 12, OrderType = "Take Out"},
+                new Order { Id = 3, CustomerName = "Dustin", CustomerEmail = "demoney@gmail.com", CustomerPhoneNumber = "9312613939", UserId = "waefaw", PaymentTypeId = 3, IsOpen = true, OrderTotal = 123, Feedback = false, Tip = 12, OrderType = "Dine In"},
                 });
     }
     };
