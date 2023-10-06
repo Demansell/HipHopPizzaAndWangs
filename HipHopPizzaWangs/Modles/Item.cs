@@ -1,10 +1,10 @@
 ﻿namespace HipHopPizzaWangs.Modles
 {
-    public class Items
+    public class Item
     {
         public int? Id { get; set; }
         public string? Name { get; set; }
-        public int? orderId { get; set; }
-        public List<Orders> Orders { get; set; }
+        public int? OrderId { get; set; }
+        public List<Order> Order { get; set; }
     }
 }
