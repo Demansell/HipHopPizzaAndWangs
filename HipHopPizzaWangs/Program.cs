@@ -184,15 +184,15 @@ app.MapGet("/api/OrdersbyID/{id}", (HipHopPizzaWangsDbContext db, int id) =>
 }
 );
 
-// Add a Post
-app.MapPost("api/Post", async (HipHopPizzaWangsDbContext db, Order order) =>
+// Add a Order
+app.MapPost("api/Order", async (HipHopPizzaWangsDbContext db, Order order) =>
 {
     db.Orders.Add(order);
     db.SaveChanges();
     return Results.Created($"/api/Post{order.Id}", order);
 });
 
-//update Post
+//update Order
 app.MapPut("api/Order/{id}", async (HipHopPizzaWangsDbContext db, int id, Order order) =>
 {
     Order orderToUpdate = await db.Orders.SingleOrDefaultAsync(order => order.Id == id);
@@ -228,5 +228,36 @@ app.MapDelete("api/Order/{id}", (HipHopPizzaWangsDbContext db, int id) =>
     db.SaveChanges();
     return Results.NoContent();
 });
+
+// User Endpoints
+
+//Check User
+
+app.MapGet("/checkuser/{uid}", (HipHopPizzaWangsDbContext db, string uid) =>
+{
+    var user = db.Users.Where(x => x.Uid == uid).ToList();
+    if (uid == null)
+    {
+        return Results.NotFound();
+    }
+    else
+    {
+        return Results.Ok(user);
+    }
+});
+
+//Get all Users
+app.MapGet("/users", (HipHopPizzaWangsDbContext db) =>
+{
+    return db.Users.ToList();
+});
+
+/* Get Single User 
+
+app.MapGet("/users/{uid}", (HipHopPizzaWangsDbContext db, string uid) =>
+{
+    return db.Users.FirstOrDefault(x => x.Uid == uid);
+});
+*/
 
 app.Run();

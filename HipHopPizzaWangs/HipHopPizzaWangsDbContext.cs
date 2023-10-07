@@ -27,9 +27,9 @@ public class HipHopPizzaWangsDbContext : DbContext
 
         modelBuilder.Entity<User>().HasData(new User[]
             {
-                new User { Id = "waefaw", CashierEmail = "demansell2016@gmail.com", CashierPassword = "M@chelle2030" },
-                new User { Id = "wawfwaeufoaewfhaew", CashierEmail = "Trex@gmail.com", CashierPassword = "M@chelle2012" },
-                new User { Id = "waeabasjvajsvjka", CashierEmail = "Tricertops@gmail.com", CashierPassword = "M@chelle2020" },
+                new User { Id = 1, CashierEmail = "demansell2016@gmail.com", CashierPassword = "M@chelle2030", Uid = "1" },
+                new User { Id = 2, CashierEmail = "Trex@gmail.com", CashierPassword = "M@chelle2012", Uid = "2" },
+                new User { Id = 3, CashierEmail = "Tricertops@gmail.com", CashierPassword = "M@chelle2020", Uid = "3" },
             });
         modelBuilder.Entity<Payment>().HasData(new Payment[]
             {

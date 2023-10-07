@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -10,9 +11,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace HipHopPizzaWangs.Migrations
 {
     [DbContext(typeof(HipHopPizzaWangsDbContext))]
-    partial class HipHopPizzaWangsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231007172812_Uid4User")]
+    partial class Uid4User
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,7 +39,7 @@ namespace HipHopPizzaWangs.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Items", (string)null);
+                    b.ToTable("Items");
 
                     b.HasData(
                         new
@@ -107,7 +109,7 @@ namespace HipHopPizzaWangs.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Orders", (string)null);
+                    b.ToTable("Orders");
 
                     b.HasData(
                         new
@@ -167,7 +169,7 @@ namespace HipHopPizzaWangs.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Payments", (string)null);
+                    b.ToTable("Payments");
 
                     b.HasData(
                         new
@@ -203,7 +205,7 @@ namespace HipHopPizzaWangs.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
 
                     b.HasData(
                         new
@@ -241,7 +243,7 @@ namespace HipHopPizzaWangs.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("ItemOrder", (string)null);
+                    b.ToTable("ItemOrder");
                 });
 
             modelBuilder.Entity("HipHopPizzaWangs.Modles.Order", b =>
