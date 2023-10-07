@@ -117,11 +117,12 @@ app.MapGet("/Items", (HipHopPizzaWangsDbContext db) =>
 // get Item by Id
 app.MapGet("/api/ItembyID/{id}", (HipHopPizzaWangsDbContext db, int id) =>
 {
-    var comment = db.Items.Where(s => s.Id == id);
-    return comment;
+    var item = db.Items.Where(s => s.Id == id);
+    return item;
 }
 );
 
+//get item by order id
 app.MapGet("/api/ItembyOrderID/{id}", (HipHopPizzaWangsDbContext db, int id) =>
 {
     var item = db.Items.Where(s => s.OrderId == id)
@@ -166,6 +167,66 @@ app.MapDelete("api/Item/{id}", (HipHopPizzaWangsDbContext db, int id) =>
     return Results.NoContent();
 });
 
+// Order Endpoints
 
+// Get all Orders
+app.MapGet("/Order", (HipHopPizzaWangsDbContext db) =>
+{
+    return db.Orders.ToList();
+});
+
+// Get Orders by Id
+app.MapGet("/api/OrdersbyID/{id}", (HipHopPizzaWangsDbContext db, int id) =>
+{
+    var order = db.Orders.Where(s => s.Id == id);
+
+    return order;
+}
+);
+
+// Add a Post
+app.MapPost("api/Post", async (HipHopPizzaWangsDbContext db, Order order) =>
+{
+    db.Orders.Add(order);
+    db.SaveChanges();
+    return Results.Created($"/api/Post{order.Id}", order);
+});
+
+//update Post
+app.MapPut("api/Order/{id}", async (HipHopPizzaWangsDbContext db, int id, Order order) =>
+{
+    Order orderToUpdate = await db.Orders.SingleOrDefaultAsync(order => order.Id == id);
+    if (orderToUpdate == null)
+    {
+        return Results.NotFound();
+    }
+    orderToUpdate.Id = order.Id;
+    orderToUpdate.CustomerName = order.CustomerName;
+    orderToUpdate.CustomerEmail = order.CustomerEmail;
+    orderToUpdate.CustomerPhoneNumber = order.CustomerPhoneNumber;
+    orderToUpdate.UserId = order.UserId;
+    orderToUpdate.PaymentTypeId = order.PaymentTypeId;
+    orderToUpdate.IsOpen = order.IsOpen;
+    orderToUpdate.OrderTotal = order.OrderTotal;
+    orderToUpdate.OrderType = order.OrderType;
+    orderToUpdate.Feedback = order.Feedback;
+    orderToUpdate.Tip = order.Tip;
+
+    db.SaveChanges();
+    return Results.NoContent();
+});
+
+// delete Order
+app.MapDelete("api/Order/{id}", (HipHopPizzaWangsDbContext db, int id) =>
+{
+    Order order = db.Orders.SingleOrDefault(order => order.Id == id);
+    if (order == null)
+    {
+        return Results.NotFound();
+    }
+    db.Orders.Remove(order);
+    db.SaveChanges();
+    return Results.NoContent();
+});
 
 app.Run();
