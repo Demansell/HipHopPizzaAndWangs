@@ -106,4 +106,66 @@ app.MapDelete("/HipHopPizzaWangs/Payments/{paymentId}", (HipHopPizzaWangsDbConte
     return Results.Ok(deletePayment);
 });
 
+// Item Endpoints
+
+// get Items
+app.MapGet("/Items", (HipHopPizzaWangsDbContext db) =>
+{
+    return db.Items.ToList();
+});
+
+// get Item by Id
+app.MapGet("/api/ItembyID/{id}", (HipHopPizzaWangsDbContext db, int id) =>
+{
+    var comment = db.Items.Where(s => s.Id == id);
+    return comment;
+}
+);
+
+app.MapGet("/api/ItembyOrderID/{id}", (HipHopPizzaWangsDbContext db, int id) =>
+{
+    var item = db.Items.Where(s => s.OrderId == id)
+    .Include(s => s.Order).ToList();
+    return item;
+}
+);
+
+//Add a item
+app.MapPost("api/Item", async (HipHopPizzaWangsDbContext db, Item item) =>
+{
+    db.Items.Add(item);
+    db.SaveChanges();
+    return Results.Created($"/api/Item{item.Id}", item);
+});
+
+//Update a Item
+app.MapPut("api/Items/{id}", async (HipHopPizzaWangsDbContext db, int id, Item item) =>
+{
+Item itemToUpdate = await db.Items.SingleOrDefaultAsync(item => item.Id == id);
+if (itemToUpdate == null)
+{
+    return Results.NotFound();
+}
+itemToUpdate.Id = item.Id;
+itemToUpdate.Name = item.Name;
+itemToUpdate.OrderId = item.OrderId;
+db.SaveChanges();
+return Results.NoContent();
+});
+
+//Delete Item
+app.MapDelete("api/Item/{id}", (HipHopPizzaWangsDbContext db, int id) =>
+{
+    Item item = db.Items.SingleOrDefault(item => item.Id == id);
+    if (item == null)
+    {
+        return Results.NotFound();
+    }
+    db.Items.Remove(item);
+    db.SaveChanges();
+    return Results.NoContent();
+});
+
+
+
 app.Run();
