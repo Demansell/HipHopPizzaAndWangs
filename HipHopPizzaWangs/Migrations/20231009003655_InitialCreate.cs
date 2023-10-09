@@ -40,9 +40,11 @@ namespace HipHopPizzaWangs.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "text", nullable: false),
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     CashierEmail = table.Column<string>(type: "text", nullable: true),
-                    CashierPassword = table.Column<string>(type: "text", nullable: true)
+                    CashierPassword = table.Column<string>(type: "text", nullable: true),
+                    Uid = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -59,6 +61,7 @@ namespace HipHopPizzaWangs.Migrations
                     CustomerEmail = table.Column<string>(type: "text", nullable: true),
                     CustomerPhoneNumber = table.Column<string>(type: "text", nullable: true),
                     UserId = table.Column<string>(type: "text", nullable: true),
+                    UserId1 = table.Column<int>(type: "integer", nullable: true),
                     PaymentTypeId = table.Column<int>(type: "integer", nullable: true),
                     PaymentId = table.Column<int>(type: "integer", nullable: true),
                     IsOpen = table.Column<bool>(type: "boolean", nullable: true),
@@ -76,8 +79,8 @@ namespace HipHopPizzaWangs.Migrations
                         principalTable: "Payments",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Orders_Users_UserId",
-                        column: x => x.UserId,
+                        name: "FK_Orders_Users_UserId1",
+                        column: x => x.UserId1,
                         principalTable: "Users",
                         principalColumn: "Id");
                 });
@@ -117,6 +120,16 @@ namespace HipHopPizzaWangs.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "Orders",
+                columns: new[] { "Id", "CustomerEmail", "CustomerName", "CustomerPhoneNumber", "Feedback", "IsOpen", "OrderTotal", "OrderType", "PaymentId", "PaymentTypeId", "Tip", "UserId", "UserId1" },
+                values: new object[,]
+                {
+                    { 1, "demoney@gmail.com", "Dustin", "9312613939", false, false, 123, "Call in", null, 1, 12, "1", null },
+                    { 2, "demoney@gmail.com", "Dustin", "9312613939", true, true, 123, "Take Out", null, 2, 12, "2", null },
+                    { 3, "demoney@gmail.com", "Dustin", "9312613939", false, true, 123, "Dine In", null, 3, 12, "3", null }
+                });
+
+            migrationBuilder.InsertData(
                 table: "Payments",
                 columns: new[] { "Id", "PaymentType" },
                 values: new object[,]
@@ -128,22 +141,12 @@ namespace HipHopPizzaWangs.Migrations
 
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "Id", "CashierEmail", "CashierPassword" },
+                columns: new[] { "Id", "CashierEmail", "CashierPassword", "Uid" },
                 values: new object[,]
                 {
-                    { "waeabasjvajsvjka", "Tricertops@gmail.com", "M@chelle2020" },
-                    { "waefaw", "demansell2016@gmail.com", "M@chelle2030" },
-                    { "wawfwaeufoaewfhaew", "Trex@gmail.com", "M@chelle2012" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Orders",
-                columns: new[] { "Id", "CustomerEmail", "CustomerName", "CustomerPhoneNumber", "Feedback", "IsOpen", "OrderTotal", "OrderType", "PaymentId", "PaymentTypeId", "Tip", "UserId" },
-                values: new object[,]
-                {
-                    { 1, "demoney@gmail.com", "Dustin", "9312613939", false, false, 123, "Call in", null, 1, 12, "waefaw" },
-                    { 2, "demoney@gmail.com", "Dustin", "9312613939", true, true, 123, "Take Out", null, 2, 12, "waefaw" },
-                    { 3, "demoney@gmail.com", "Dustin", "9312613939", false, true, 123, "Dine In", null, 3, 12, "waefaw" }
+                    { 1, "demansell2016@gmail.com", "M@chelle2030", "1" },
+                    { 2, "Trex@gmail.com", "M@chelle2012", "2" },
+                    { 3, "Tricertops@gmail.com", "M@chelle2020", "3" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -157,9 +160,9 @@ namespace HipHopPizzaWangs.Migrations
                 column: "PaymentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Orders_UserId",
+                name: "IX_Orders_UserId1",
                 table: "Orders",
-                column: "UserId");
+                column: "UserId1");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

@@ -11,7 +11,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace HipHopPizzaWangs.Migrations
 {
     [DbContext(typeof(HipHopPizzaWangsDbContext))]
-    [Migration("20231006003528_InitialCreate")]
+    [Migration("20231009003655_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -103,11 +103,14 @@ namespace HipHopPizzaWangs.Migrations
                     b.Property<string>("UserId")
                         .HasColumnType("text");
 
+                    b.Property<int?>("UserId1")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
 
                     b.HasIndex("PaymentId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId1");
 
                     b.ToTable("Orders");
 
@@ -124,7 +127,7 @@ namespace HipHopPizzaWangs.Migrations
                             OrderType = "Call in",
                             PaymentTypeId = 1,
                             Tip = 12,
-                            UserId = "waefaw"
+                            UserId = "1"
                         },
                         new
                         {
@@ -138,7 +141,7 @@ namespace HipHopPizzaWangs.Migrations
                             OrderType = "Take Out",
                             PaymentTypeId = 2,
                             Tip = 12,
-                            UserId = "waefaw"
+                            UserId = "2"
                         },
                         new
                         {
@@ -152,7 +155,7 @@ namespace HipHopPizzaWangs.Migrations
                             OrderType = "Dine In",
                             PaymentTypeId = 3,
                             Tip = 12,
-                            UserId = "waefaw"
+                            UserId = "3"
                         });
                 });
 
@@ -191,13 +194,19 @@ namespace HipHopPizzaWangs.Migrations
 
             modelBuilder.Entity("HipHopPizzaWangs.Modles.User", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("text");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("CashierEmail")
                         .HasColumnType("text");
 
                     b.Property<string>("CashierPassword")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Uid")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
@@ -207,21 +216,24 @@ namespace HipHopPizzaWangs.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "waefaw",
+                            Id = 1,
                             CashierEmail = "demansell2016@gmail.com",
-                            CashierPassword = "M@chelle2030"
+                            CashierPassword = "M@chelle2030",
+                            Uid = "1"
                         },
                         new
                         {
-                            Id = "wawfwaeufoaewfhaew",
+                            Id = 2,
                             CashierEmail = "Trex@gmail.com",
-                            CashierPassword = "M@chelle2012"
+                            CashierPassword = "M@chelle2012",
+                            Uid = "2"
                         },
                         new
                         {
-                            Id = "waeabasjvajsvjka",
+                            Id = 3,
                             CashierEmail = "Tricertops@gmail.com",
-                            CashierPassword = "M@chelle2020"
+                            CashierPassword = "M@chelle2020",
+                            Uid = "3"
                         });
                 });
 
@@ -248,7 +260,7 @@ namespace HipHopPizzaWangs.Migrations
 
                     b.HasOne("HipHopPizzaWangs.Modles.User", "User")
                         .WithMany("Order")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId1");
 
                     b.Navigation("Payment");
 

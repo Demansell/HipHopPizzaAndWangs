@@ -39,9 +39,9 @@ public class HipHopPizzaWangsDbContext : DbContext
            });
         modelBuilder.Entity<Order>().HasData(new Order[]
             { 
-                new Order { Id = 1, CustomerName = "Dustin", CustomerEmail = "demoney@gmail.com", CustomerPhoneNumber = "9312613939", UserId = "waefaw", PaymentTypeId = 1, IsOpen = false, OrderTotal = 123, Feedback = false, Tip = 12, OrderType = "Call in"},
-                new Order { Id = 2, CustomerName = "Dustin", CustomerEmail = "demoney@gmail.com", CustomerPhoneNumber = "9312613939", UserId = "waefaw", PaymentTypeId = 2, IsOpen = true, OrderTotal = 123, Feedback = true, Tip = 12, OrderType = "Take Out"},
-                new Order { Id = 3, CustomerName = "Dustin", CustomerEmail = "demoney@gmail.com", CustomerPhoneNumber = "9312613939", UserId = "waefaw", PaymentTypeId = 3, IsOpen = true, OrderTotal = 123, Feedback = false, Tip = 12, OrderType = "Dine In"},
+                new Order { Id = 1, CustomerName = "Dustin", CustomerEmail = "demoney@gmail.com", CustomerPhoneNumber = "9312613939", UserId = "1", PaymentTypeId = 1, IsOpen = false, OrderTotal = 123, Feedback = false, Tip = 12, OrderType = "Call in"},
+                new Order { Id = 2, CustomerName = "Dustin", CustomerEmail = "demoney@gmail.com", CustomerPhoneNumber = "9312613939", UserId = "2", PaymentTypeId = 2, IsOpen = true, OrderTotal = 123, Feedback = true, Tip = 12, OrderType = "Take Out"},
+                new Order { Id = 3, CustomerName = "Dustin", CustomerEmail = "demoney@gmail.com", CustomerPhoneNumber = "9312613939", UserId = "3", PaymentTypeId = 3, IsOpen = true, OrderTotal = 123, Feedback = false, Tip = 12, OrderType = "Dine In"},
                 });
     }
     };
