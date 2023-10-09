@@ -252,12 +252,15 @@ app.MapGet("/users", (HipHopPizzaWangsDbContext db) =>
     return db.Users.ToList();
 });
 
-/* Get Single User 
+// Get Single User 
 
 app.MapGet("/users/{uid}", (HipHopPizzaWangsDbContext db, string uid) =>
 {
     return db.Users.FirstOrDefault(x => x.Uid == uid);
 });
-*/
+
+
+
+
 
 app.Run();
