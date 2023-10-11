@@ -20,9 +20,9 @@ public class HipHopPizzaWangsDbContext : DbContext
     {
         modelBuilder.Entity<Item>().HasData(new Item[]
             {
-            new Item { Id = 1, Name = "Carrot", OrderId = 1 },
-            new Item { Id = 2, Name = "Orange", OrderId = 2 },
-            new Item { Id = 3, Name = "Lemon", OrderId = 3 },
+            new Item { Id = 1, Name = "Carrot", OrderId = 1, Price = 12, Description = "ferrsef" },
+            new Item { Id = 2, Name = "Orange", OrderId = 2, Price = 12, Description = "ferrsef" },
+            new Item { Id = 3, Name = "Lemon", OrderId = 3, Price = 12, Description = "ferrsef" },
             });
 
         modelBuilder.Entity<User>().HasData(new User[]

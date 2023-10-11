@@ -5,6 +5,18 @@ using Microsoft.AspNetCore.Http.Json;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:3000",
+                                "http://localhost:5169")
+                                .AllowAnyHeader()
+                                .AllowAnyMethod();
+        });
+});
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -31,6 +43,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors();
+
 
 
 // payment endpoints 
@@ -178,7 +193,7 @@ app.MapGet("/Order", (HipHopPizzaWangsDbContext db) =>
 // Get Orders by Id
 app.MapGet("/api/OrdersbyID/{id}", (HipHopPizzaWangsDbContext db, int id) =>
 {
-    var order = db.Orders.Where(s => s.Id == id);
+    var order = db.Orders.SingleOrDefaultAsync(s => s.Id == id);
 
     return order;
 }
