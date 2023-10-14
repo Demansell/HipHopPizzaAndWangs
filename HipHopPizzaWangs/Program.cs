@@ -132,7 +132,7 @@ app.MapGet("/Items", (HipHopPizzaWangsDbContext db) =>
 // get Item by Id
 app.MapGet("/api/ItembyID/{id}", (HipHopPizzaWangsDbContext db, int id) =>
 {
-    var item = db.Items.Where(s => s.Id == id);
+    var item = db.Items.SingleOrDefaultAsync(s => s.Id == id);
     return item;
 }
 );
@@ -140,8 +140,8 @@ app.MapGet("/api/ItembyID/{id}", (HipHopPizzaWangsDbContext db, int id) =>
 //get item by order id
 app.MapGet("/api/ItembyOrderID/{id}", (HipHopPizzaWangsDbContext db, int id) =>
 {
-    var item = db.Items.Where(s => s.OrderId == id)
-    .Include(s => s.Order).ToList();
+    var item = db.Items.SingleOrDefaultAsync(s => s.OrderId == id);
+    // .Include(s => s.Order).ToList();
     return item;
 }
 );
@@ -274,7 +274,18 @@ app.MapGet("/users/{uid}", (HipHopPizzaWangsDbContext db, string uid) =>
     return db.Users.FirstOrDefault(x => x.Uid == uid);
 });
 
-
+app.MapGet("/checkuser/{uid}", (HipHopPizzaWangsDbContext db, string uid) =>
+{
+    var user = db.Users.Where(x => x.Uid == uid).ToList();
+    if (uid == null)
+    {
+        return Results.NotFound();
+    }
+    else
+    {
+        return Results.Ok(user);
+    }
+});
 
 
 
