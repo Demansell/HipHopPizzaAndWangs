@@ -267,26 +267,18 @@ app.MapGet("/users", (HipHopPizzaWangsDbContext db) =>
     return db.Users.ToList();
 });
 
-// Get Single User 
-
-app.MapGet("/users/{uid}", (HipHopPizzaWangsDbContext db, string uid) =>
+// get open orders 
+app.MapGet("/isOpen", (HipHopPizzaWangsDbContext db) =>
 {
-    return db.Users.FirstOrDefault(x => x.Uid == uid);
+    var openOrders = db.Orders.Where(x => x.IsOpen == false);
+    return openOrders.ToList();
 });
 
-app.MapGet("/checkuser/{uid}", (HipHopPizzaWangsDbContext db, string uid) =>
+// get closed orders 
+app.MapGet("/isclosedOrders", (HipHopPizzaWangsDbContext db) =>
 {
-    var user = db.Users.Where(x => x.Uid == uid).ToList();
-    if (uid == null)
-    {
-        return Results.NotFound();
-    }
-    else
-    {
-        return Results.Ok(user);
-    }
+    var closedOrders = db.Orders.Where(s => s.IsOpen == true);
+    return closedOrders.ToList();
 });
-
-
 
 app.Run();

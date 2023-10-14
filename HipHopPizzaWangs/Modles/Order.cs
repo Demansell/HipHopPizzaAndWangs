@@ -15,6 +15,7 @@
         public string? OrderType { get; set; }
         public bool Feedback { get; set; }
         public int Tip { get; set; }
+        public int ItemId { get; set; }
         public List<Item>? Items { get; set; }
     }
 }
