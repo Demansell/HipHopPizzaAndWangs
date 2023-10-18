@@ -140,7 +140,7 @@ app.MapGet("/api/ItembyID/{id}", (HipHopPizzaWangsDbContext db, int id) =>
 //get item by order id
 app.MapGet("/api/ItembyOrderID/{id}", (HipHopPizzaWangsDbContext db, int id) =>
 {
-    var item = db.Items.SingleOrDefaultAsync(s => s.OrderId == id);
+    var item = db.Items.Where(s => s.OrderId == id);
     // .Include(s => s.Order).ToList();
     return item;
 }
@@ -199,6 +199,13 @@ app.MapGet("/api/OrdersbyID/{id}", (HipHopPizzaWangsDbContext db, int id) =>
 }
 );
 
+// get all closed orders
+app.MapGet("/api/Closedorders)", (HipHopPizzaWangsDbContext db) => 
+    {
+        return db.Orders.Where(x => x.IsOpen == true);
+}
+);
+
 // Add a Order
 app.MapPost("api/Order", async (HipHopPizzaWangsDbContext db, Order order) =>
 {
@@ -206,6 +213,7 @@ app.MapPost("api/Order", async (HipHopPizzaWangsDbContext db, Order order) =>
     db.SaveChanges();
     return Results.Created($"/api/Post{order.Id}", order);
 });
+
 
 //update Order
 app.MapPut("api/Order/{id}", async (HipHopPizzaWangsDbContext db, int id, Order order) =>
