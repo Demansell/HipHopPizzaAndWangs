@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -10,9 +11,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace HipHopPizzaWangs.Migrations
 {
     [DbContext(typeof(HipHopPizzaWangsDbContext))]
-    partial class HipHopPizzaWangsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231020215606_addedpaymentmethod")]
+    partial class addedpaymentmethod
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -101,9 +104,6 @@ namespace HipHopPizzaWangs.Migrations
                     b.Property<int>("OrderTotal")
                         .HasColumnType("integer");
 
-                    b.Property<int>("OrderTotalWithoutTip")
-                        .HasColumnType("integer");
-
                     b.Property<string>("OrderType")
                         .HasColumnType("text");
 
@@ -144,7 +144,6 @@ namespace HipHopPizzaWangs.Migrations
                             IsOpen = false,
                             ItemId = 1,
                             OrderTotal = 123,
-                            OrderTotalWithoutTip = 25,
                             OrderType = "Call in",
                             PaymentTypeId = 1,
                             Tip = 12,
@@ -160,7 +159,6 @@ namespace HipHopPizzaWangs.Migrations
                             IsOpen = true,
                             ItemId = 2,
                             OrderTotal = 123,
-                            OrderTotalWithoutTip = 2,
                             OrderType = "Take Out",
                             PaymentTypeId = 2,
                             Tip = 12,
@@ -176,7 +174,6 @@ namespace HipHopPizzaWangs.Migrations
                             IsOpen = true,
                             ItemId = 3,
                             OrderTotal = 123,
-                            OrderTotalWithoutTip = 2,
                             OrderType = "Dine In",
                             PaymentTypeId = 3,
                             Tip = 12,

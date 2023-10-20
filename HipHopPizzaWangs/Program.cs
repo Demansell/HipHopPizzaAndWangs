@@ -200,7 +200,7 @@ app.MapGet("/api/OrdersbyID/{id}", (HipHopPizzaWangsDbContext db, int id) =>
 );
 
 // get all closed orders
-app.MapGet("/api/Closedorders)", (HipHopPizzaWangsDbContext db) => 
+app.MapGet("/api/Closedorders", (HipHopPizzaWangsDbContext db) => 
     {
         return db.Orders.Where(x => x.IsOpen == true);
 }
@@ -233,6 +233,7 @@ app.MapPut("api/Order/{id}", async (HipHopPizzaWangsDbContext db, int id, Order 
     orderToUpdate.OrderTotal = order.OrderTotal;
     orderToUpdate.OrderType = order.OrderType;
     orderToUpdate.Feedback = order.Feedback;
+    orderToUpdate.PaymentMethod = order.PaymentMethod;
     orderToUpdate.Tip = order.Tip;
 
     db.SaveChanges();

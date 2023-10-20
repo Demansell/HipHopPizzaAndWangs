@@ -9,11 +9,13 @@
         public string? UserId { get; set;}
         public User? User { get; set; }
         public int? PaymentTypeId { get; set;}
+        public string? PaymentMethod { get; set; }
         public Payment? Payment { get; set; }
         public bool? IsOpen { get; set; }
         public int OrderTotal { get; set; }
         public string? OrderType { get; set; }
         public bool Feedback { get; set; }
+        public int OrderTotalWithoutTip { get; set; }
         public int Tip { get; set; }
         public int ItemId { get; set; }
         public List<Item>? Items { get; set; }
